@@ -1,24 +1,6 @@
-# xiaomi-ai-frontend
+# 小米实训Java方向智能AI客服
 
-## Project setup
-```
-npm install
-```
+XiaomiAI为使用springboot实现的后端
+xiaomi-ai-frontend为使用Vue2.0实现的前端
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
 
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
