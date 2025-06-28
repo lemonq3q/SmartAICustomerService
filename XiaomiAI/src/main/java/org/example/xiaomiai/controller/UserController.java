@@ -13,7 +13,18 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @PostMapping
+    @GetMapping
+    public ResponseMessage getUserByPhone(String phone){
+        User user = userService.getUserByPhone(phone);
+        if(user == null){
+            return ResponseMessage.failed("不存在此用户");
+        }
+        else {
+            return ResponseMessage.success("获取成功", user.getId());
+        }
+    }
+
+    @PostMapping("/registered")
     public ResponseMessage registered(@RequestBody User user){
         int res = userService.addUser(user);
         if(res == -1){

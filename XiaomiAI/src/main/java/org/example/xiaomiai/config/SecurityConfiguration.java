@@ -13,15 +13,20 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
+import org.springframework.security.web.authentication.rememberme.InMemoryTokenRepositoryImpl;
+import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import java.io.PrintWriter;
+import java.util.Arrays;
 import java.util.HashMap;
 
 @Configuration
@@ -32,6 +37,24 @@ public class SecurityConfiguration {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    @Bean
+    public PersistentTokenRepository persistentTokenRepository() {
+        return new InMemoryTokenRepositoryImpl();
+    }
+
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.setAllowedOrigins(Arrays.asList("*"));  // 允许所有源
+        configuration.setAllowedMethods(Arrays.asList("*"));  // 允许所有方法
+        configuration.setAllowedHeaders(Arrays.asList("*"));  // 允许所有头
+        configuration.setMaxAge(168000L);  // 预检请求缓存时间
+
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration); // 应用到所有路径
+        return source;
+    }
 
     @Bean
     public AuthenticationEntryPoint authenticationEntryPoint(){
@@ -102,18 +125,26 @@ public class SecurityConfiguration {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
         http
+            .cors(
+                    cors-> cors.configurationSource(corsConfigurationSource())
+            )
             .sessionManagement(
                     session -> session.sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
+            )
+            .rememberMe(remember -> remember
+                    .tokenRepository(persistentTokenRepository())
+                    .tokenValiditySeconds(86400)  // 24小时
             )
             .exceptionHandling(exception -> exception
                     .authenticationEntryPoint(authenticationEntryPoint())
             )
             .authorizeHttpRequests(request -> request
-                    .requestMatchers("/registered").permitAll()
+                    .requestMatchers("/user/registered","/check_login").permitAll()
                     .anyRequest().authenticated()
             )
             .formLogin(form -> form
                     .loginProcessingUrl("/check_login")
+                    .loginPage("/check_login")
                     .usernameParameter("username")
                     .passwordParameter("password")
                     .successHandler(authenticationSuccessEntryPoint())
@@ -126,6 +157,7 @@ public class SecurityConfiguration {
                     .clearAuthentication(true)
                     .logoutSuccessHandler(logoutSuccessHandler())
             )
+            .authenticationProvider(authenticationProvider())
             .csrf(csrf -> csrf.disable());
 
         return http.build();

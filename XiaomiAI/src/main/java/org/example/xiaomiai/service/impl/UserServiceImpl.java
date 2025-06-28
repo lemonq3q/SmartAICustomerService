@@ -7,6 +7,7 @@ import org.example.xiaomiai.mapper.UserMapper;
 import org.example.xiaomiai.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +21,7 @@ public class UserServiceImpl implements UserService {
     PasswordEncoder passwordEncoder;
 
     @Override
-    public User loadUserByUsername(String username) {
+    public UserDetails loadUserByUsername(String username) {
         QueryWrapper<User> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("username", username);
         return userMapper.selectOne(queryWrapper);
@@ -29,6 +30,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public int addUser(User user) {
         try {
+            user.setId(null);
             user.setPassword(passwordEncoder.encode(user.getPassword()));
             int x = userMapper.insert(user);
             return x;
@@ -50,5 +52,12 @@ public class UserServiceImpl implements UserService {
             e.printStackTrace();
             return -1;
         }
+    }
+
+    @Override
+    public User getUserByPhone(String phone) {
+        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("phone", phone);
+        return userMapper.selectOne(queryWrapper);
     }
 }

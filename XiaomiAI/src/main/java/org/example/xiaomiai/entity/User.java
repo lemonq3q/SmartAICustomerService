@@ -1,5 +1,7 @@
 package org.example.xiaomiai.entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
@@ -12,6 +14,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 public class User implements UserDetails {
+    @TableId(type = IdType.AUTO)
     private Integer id;
     private String username;
     private String password;

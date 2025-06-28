@@ -1,0 +1,53 @@
+.el-header{
+  padding: 0 !important;
+}
+.header{
+  padding: 0 20px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 20px;
+  background-color: #409EFF;
+  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+}
+
+.left {
+  display: flex;
+  align-items: center;
+}
+.right {
+  display: flex;
+  align-items: center;
+}
+
+.icon {
+  width: 25px;
+  height: 25px;
+  font-size: 25px;
+  margin-right: 10px;
+}
+
+.header_img {
+  width: 47px;
+  height: 47px;
+  margin-right: 10px;
+  border-radius: 4px;
+}
+
+.header_username {
+  margin-right: 10px;
+}
+
+.menu_icon {
+  font-size: 25px;
+  position: absolute;
+}
+
+.el-dropdown {
+  height: 25px;
+}
+
+.index_tip{
+  margin-left: 50px;
+}

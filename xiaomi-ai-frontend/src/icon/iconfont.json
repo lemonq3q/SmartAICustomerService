@@ -1,0 +1,65 @@
+{
+  "id": "",
+  "name": "",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "4735415",
+      "name": "设备管理",
+      "font_class": "shebeiguanli",
+      "unicode": "e604",
+      "unicode_decimal": 58884
+    },
+    {
+      "icon_id": "5831367",
+      "name": "未完成",
+      "font_class": "weiwancheng",
+      "unicode": "e668",
+      "unicode_decimal": 58984
+    },
+    {
+      "icon_id": "8300842",
+      "name": "已完成",
+      "font_class": "yiwancheng",
+      "unicode": "e612",
+      "unicode_decimal": 58898
+    },
+    {
+      "icon_id": "11882443",
+      "name": "员工管理",
+      "font_class": "yuangongguanli",
+      "unicode": "e62e",
+      "unicode_decimal": 58926
+    },
+    {
+      "icon_id": "12342840",
+      "name": "模型设置",
+      "font_class": "moxingshezhi",
+      "unicode": "e614",
+      "unicode_decimal": 58900
+    },
+    {
+      "icon_id": "29094286",
+      "name": "设备查询",
+      "font_class": "shebeichaxun",
+      "unicode": "e6d3",
+      "unicode_decimal": 59091
+    },
+    {
+      "icon_id": "32432888",
+      "name": "设备设置",
+      "font_class": "shebeishezhi",
+      "unicode": "e684",
+      "unicode_decimal": 59012
+    },
+    {
+      "icon_id": "38712266",
+      "name": "模型训练-copy",
+      "font_class": "moxingxunlian",
+      "unicode": "e503",
+      "unicode_decimal": 58627
+    }
+  ]
+}

@@ -1,0 +1,86 @@
+
+
+.login_body:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1; /* 确保伪元素位于内容层之下 */
+
+  /* 设置背景图片 */
+  background-image: url('../../assets/bg.jpg');
+  background-size: cover;
+  background-position: center;
+
+  filter: blur(10px);
+}
+
+.login_title {
+  margin-bottom: 0.6rem;
+  font-size: 0.4rem;
+  font-weight: 700;
+}
+
+.login_container {
+  padding: 30px 40px 40px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 6rem;
+  background-color: white;
+  border-radius: 30px;
+  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+}
+
+.login_column {
+  padding: 0.1rem;
+  margin-bottom: 0.2rem;
+  display: flex;
+  border-bottom: 1px  solid #31A3E0;
+}
+
+.login_input {
+  flex: 1;
+
+}
+
+.login_button {
+  margin: 30px auto 0;
+  font-size: 0.25rem;
+  line-height: 0.52rem;
+  /* font-weight: 700; */
+  color: white;
+  width: 70%;
+  height: 0.5rem;
+  border-radius: 15px;
+  background-color: #31A3E0;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.login_button:hover {
+  background-color: rgb(100, 175, 219);
+}
+
+.login_nav {
+  margin-top: 10px;
+  padding: 0 30%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.login_nav_item{
+  font-size: 0.2rem;
+}
+
+.login_nav_item:hover {
+  color: #31A3E0;
+}
+
+.login_icon{
+  width: 16px;
+  height: 16px;
+  margin-right: 10px;
+}

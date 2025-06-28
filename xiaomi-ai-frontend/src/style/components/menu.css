@@ -1,0 +1,21 @@
+@font-face {
+  font-family: 'logo';
+  src: url('../../assets/logo.ttf');
+}
+
+.menu_body{
+  text-align: left;
+  width: 250px;
+  height: 100%;
+  background-color: #fff;
+  overflow: hidden;
+  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+}
+
+
+
+.iconfont {
+  margin-right: 10px;
+  width: 15px;
+  height: 15px;
+}
