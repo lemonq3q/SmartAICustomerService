@@ -8,7 +8,7 @@ const store = new Vuex.Store({
   state: {
     root: '',
     path: '',
-    userId: 0,
+    userId: -1,
     userheadshot: '未登陆',
     username: '未登录',
     isLogin: false

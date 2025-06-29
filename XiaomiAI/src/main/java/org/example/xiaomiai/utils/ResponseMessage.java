@@ -14,6 +14,10 @@ public class ResponseMessage {
         return new ResponseMessage(200, message, data);
     }
 
+    public static ResponseMessage success(String message){
+        return new ResponseMessage(200 ,message, null);
+    }
+
     public static ResponseMessage failed(String message){
         return new ResponseMessage(400, message, null);
     }

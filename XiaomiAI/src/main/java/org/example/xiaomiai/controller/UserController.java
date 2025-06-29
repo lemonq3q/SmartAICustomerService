@@ -24,6 +24,17 @@ public class UserController {
         }
     }
 
+    @GetMapping("/{username}")
+    public ResponseMessage getUserByUsername(@PathVariable("username") String username){
+        User user = (User) userService.loadUserByUsername(username);
+        if(user != null){
+            return ResponseMessage.success("查询成功", user);
+        }
+        else {
+            return ResponseMessage.failed("查询失败");
+        }
+    }
+
     @PostMapping("/registered")
     public ResponseMessage registered(@RequestBody User user){
         int res = userService.addUser(user);

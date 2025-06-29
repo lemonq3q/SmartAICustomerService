@@ -27,3 +27,7 @@ export function testLogin(){
 export function logout(){
   return axios.post("/logout");
 }
+
+export function getUserByUsername(username){
+  return axios.get("/user/"+username);
+}

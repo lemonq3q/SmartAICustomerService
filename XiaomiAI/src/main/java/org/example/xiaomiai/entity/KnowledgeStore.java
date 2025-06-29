@@ -4,19 +4,14 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
-
-import java.time.LocalDateTime;
 
 @Data
 @AllArgsConstructor
-@NoArgsConstructor
-public class Conversation {
+public class KnowledgeStore {
     @TableId(type = IdType.AUTO)
     private Integer id;
-    private Integer sessionId;
+    private String storeName;
     private Integer userId;
-    private Integer role;  // 0为ai，1为用户
-    private String content;
-    private Long time;
+    private Integer total;
+    private Integer type;   // 0为用户上传知识库，1为用户对话记录知识库
 }

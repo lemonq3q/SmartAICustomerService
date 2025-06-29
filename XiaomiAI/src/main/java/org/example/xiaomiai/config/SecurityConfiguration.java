@@ -46,11 +46,11 @@ public class SecurityConfiguration {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList("*"));  // 允许所有源
+        configuration.setAllowedOriginPatterns(Arrays.asList("*"));  // 允许所有源
         configuration.setAllowedMethods(Arrays.asList("*"));  // 允许所有方法
         configuration.setAllowedHeaders(Arrays.asList("*"));  // 允许所有头
         configuration.setMaxAge(168000L);  // 预检请求缓存时间
-
+        configuration.setAllowCredentials(true);
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration); // 应用到所有路径
         return source;
@@ -139,7 +139,7 @@ public class SecurityConfiguration {
                     .authenticationEntryPoint(authenticationEntryPoint())
             )
             .authorizeHttpRequests(request -> request
-                    .requestMatchers("/user/registered","/check_login").permitAll()
+                    .requestMatchers("/user/registered","/check_login", "/chat").permitAll()
                     .anyRequest().authenticated()
             )
             .formLogin(form -> form

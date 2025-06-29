@@ -53,7 +53,8 @@
 </template>
 
 <script>
-import {login, register, getUserByPhone, updateUserPassword, testLogin} from '../api/login'
+import { mapMutations } from 'vuex';
+import {login, register, getUserByPhone, updateUserPassword, testLogin, getUserByUsername} from '../api/login'
 
 export default {
   name: 'Login',
@@ -76,7 +77,9 @@ export default {
   },
 
   methods:{
-
+    ...mapMutations([
+      'updateUserId','updateUsername'
+    ]),
     reset(){
       this.username = '';
       this.password = '';
@@ -86,6 +89,7 @@ export default {
     testLogin(){
       testLogin().then(res => {
         if(res.data.code == 200){
+          this.updateUsername(localStorage.getItem('username'));
           this.$router.push('/index/chat')
         }
       }).catch(err => {
@@ -105,8 +109,11 @@ export default {
         return;
       }
       this.loginLock = false;
+      var oriUsername = this.username;
       login(this.username, this.password).then(res => { 
         if(res.data.code == 0){
+          this.updateUsername(oriUsername);
+          localStorage.setItem("username", this.username);
           this.$router.push('/index/chat');
         }
         else{
