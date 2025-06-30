@@ -44,4 +44,25 @@ public class ConversationServiceImpl implements ConversationService {
         int x = conversationMapper.delete(queryWrapper);
         return x;
     }
+
+    @Override
+    public List<Conversation> selectConversationByCondition(Conversation params, long start, long end) {
+        QueryWrapper<Conversation> queryWrapper = new QueryWrapper<>();
+        if (params.getSessionId() != null) {
+            queryWrapper.eq("session_id", params.getSessionId());
+        }
+        if (params.getUserId() != null) {
+            queryWrapper.eq("user_id", params.getUserId());
+        }
+        if (params.getRole() != null) {
+            queryWrapper.eq("role", params.getRole());
+        }
+
+        if (params.getContent() != null) {
+            queryWrapper.like("content", params.getContent()); // 使用模糊匹配
+        }
+        queryWrapper.between("time", start, end);
+
+        return conversationMapper.selectList(queryWrapper);
+    }
 }

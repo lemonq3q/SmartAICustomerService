@@ -12,4 +12,5 @@ public interface KnowledgeStoreService {
     KnowledgeStore addKnowledge(KnowledgeStore knowledgeStore);
 
     int deleteKnowledge(KnowledgeStore knowledgeStore);
+
 }

@@ -1,11 +1,14 @@
 package org.example.xiaomiai.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import jakarta.annotation.Resource;
 import org.example.xiaomiai.entity.Knowledge;
 import org.example.xiaomiai.entity.KnowledgeStore;
 import org.example.xiaomiai.mapper.KnowledgeMapper;
+import org.example.xiaomiai.mapper.KnowledgeStoreMapper;
 import org.example.xiaomiai.service.KnowledgeService;
+import org.example.xiaomiai.service.KnowledgeStoreService;
 import org.springframework.ai.document.Document;
 import org.springframework.ai.vectorstore.SearchRequest;
 import org.springframework.ai.vectorstore.VectorStore;
@@ -26,6 +29,9 @@ public class KnowledgeServiceImpl implements KnowledgeService {
 
     @Resource
     private KnowledgeMapper knowledgeMapper;
+
+    @Autowired
+    private KnowledgeStoreMapper knowledgeStoreMapper;
 
     @Autowired
     private VectorStore vectorStore;
@@ -76,6 +82,7 @@ public class KnowledgeServiceImpl implements KnowledgeService {
             )
         );
         vectorStore.add(List.of(doc));
+        updateStoreTotalByStoreName(knowledgeStore, 1);
         return knowledge;
     }
 
@@ -111,5 +118,14 @@ public class KnowledgeServiceImpl implements KnowledgeService {
         );
         vectorStore.add(List.of(doc));
         return 1;
+    }
+
+    @CacheEvict(value = "knowledgeStoreCache", key = "#store.userId")
+    public int updateStoreTotalByStoreName(KnowledgeStore store, int updateNum) {
+        UpdateWrapper<KnowledgeStore> wrapper = new UpdateWrapper<>();
+        wrapper.setSql("total = total + " + updateNum);
+        wrapper.eq("store_name", store.getStoreName());
+        int x = knowledgeStoreMapper.update(null, wrapper);
+        return x;
     }
 }

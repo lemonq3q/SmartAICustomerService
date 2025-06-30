@@ -1,0 +1,16 @@
+.history_select_row {
+  width: 6.5rem;
+  margin-right: 1rem;
+  display: flex;
+  height: 0.5rem;
+  align-items: center;
+}
+
+.history_select_label {
+  text-align: left;
+  width: 1.2rem;
+  height: 100%;
+  line-height: 0.48rem;
+  font-size: 0.23rem;
+}
+

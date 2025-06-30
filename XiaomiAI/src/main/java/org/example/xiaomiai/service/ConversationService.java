@@ -10,4 +10,6 @@ public interface ConversationService {
     int addConversation(Conversation conversation);
 
     int deleteConversationBySessionId(int sessionId);
+
+    List<Conversation> selectConversationByCondition(Conversation params, long start, long end);
 }

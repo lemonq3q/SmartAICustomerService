@@ -79,41 +79,42 @@ import {getUserByUsername} from '../api/login';
 import { getAllModel } from '@/api/model';
 import { getStoreByUserId } from '@/api/store';
 import { selectConversation } from '@/api/conversation';
-import { chat } from '@/api/chat';
 
 export default {
   name: 'Chat',
   mounted(){
     this.updateRoot('首页');
     this.updatePath('');
-    if(this.userId == -1){
-      getUserByUsername(localStorage.getItem("username")).then(res=>{
-        if(res.data.code == 200){
-          this.updateUserId(res.data.data.id);
-          this.selectSessionByUserId();
-    
-          getAllModel().then(res=>{ 
-            if(res.data.code == 200){
-              this.models = res.data.data;
-              this.selectModel = this.models[0].modelName;
-            }
-          }).catch(err=>{
-            console.log(err);
-          });
-          getStoreByUserId(this.userId).then(res=>{ 
-            if(res.data.code == 200){
-              this.store = res.data.data;
-              console.log(this.store);
-            }
-          }).catch(err=>{
-            console.log(err);
-          });
+    getUserByUsername(localStorage.getItem("username")).then(res=>{
+      if(res.data.code == 200){
+        this.updateUserId(res.data.data.id);
+        this.selectSessionByUserId();
+  
+        getAllModel().then(res=>{ 
+          if(res.data.code == 200){
+            this.models = res.data.data;
+            this.selectModel = this.models[0].modelName;
+          }
+        }).catch(err=>{
+          console.log(err);
+        });
+        getStoreByUserId(this.userId).then(res=>{ 
+          if(res.data.code == 200){
+            this.stores = res.data.data;
+            this.stores.push({
+              id: 0,
+              storeName: "不使用知识库"
+            });
+            console.log(this.store);
+          }
+        }).catch(err=>{
+          console.log(err);
+        });
 
-        }
-      }).catch(err=>{ 
-        console.log(err);
-      });
-    }
+      }
+    }).catch(err=>{ 
+      console.log(err);
+    });
     
   },
 
@@ -133,10 +134,15 @@ export default {
       nowSessionId: -1,
       models: [],
 
-      stores: [],
+      stores: [
+        {
+          id: 0,
+          storeName: "不使用知识库"
+        }
+      ],
       currentMessage: '',
       selectModel: '',
-      selectStore: '',
+      selectStore: '不使用知识库',
 
       historyDialogue: []
     }
@@ -156,7 +162,7 @@ export default {
       selectSession(this.userId).then(res => { 
         if(res.data.code == 200){
           this.sessions = res.data.data;
-          console.log("session: " + this.sessions);
+          this.sessions.sort((a, b) => b.createTime - a.createTime);
         }
       })
       .catch(err => { 
@@ -227,6 +233,7 @@ export default {
     },
 
     sendQuestion(requestData){
+      this.currentMessage = '';
       (async ()=>{
         const response = await fetch('http://localhost:8080/chat', {
           method: "POST",

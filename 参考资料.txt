@@ -3,3 +3,6 @@ redis-server.exe redis.windows.conf
 
 导出数据库文件
 mysqldump -u root -p xiaomi_ai > E:\XiaomiTranning\SmartAICustomerService\xiaomi_ai.sql
+
+ChromaDB启动
+chroma run --path E:\XiaomiTranning\chroma_db_data --port 9000

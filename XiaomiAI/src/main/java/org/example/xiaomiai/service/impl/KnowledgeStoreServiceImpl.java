@@ -1,6 +1,7 @@
 package org.example.xiaomiai.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import jakarta.annotation.Resource;
 import org.example.xiaomiai.entity.Knowledge;
 import org.example.xiaomiai.entity.KnowledgeStore;
@@ -53,4 +54,5 @@ public class KnowledgeStoreServiceImpl implements KnowledgeStoreService {
         }
         return x;
     }
+
 }

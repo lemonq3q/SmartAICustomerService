@@ -90,7 +90,7 @@ export default {
       testLogin().then(res => {
         if(res.data.code == 200){
           this.updateUsername(localStorage.getItem('username'));
-          this.$router.push('/index/chat')
+          this.getUserId();
         }
       }).catch(err => {
         console.log(err)
@@ -114,7 +114,7 @@ export default {
         if(res.data.code == 0){
           this.updateUsername(oriUsername);
           localStorage.setItem("username", this.username);
-          this.$router.push('/index/chat');
+          this.getUserId();
         }
         else{
           this.$message.error("账号或密码错误");
@@ -157,6 +157,19 @@ export default {
         this.$message.error('网络连接出错');
       });
     },
+
+    getUserId(){
+      getUserByUsername(localStorage.getItem("username")).then(res=>{
+        if(res.data.code == 200){
+          this.updateUserId(res.data.data.id);
+          localStorage.setItem("userId",res.data.data.id);
+          this.$router.push('/index/chat');
+        }
+      }).catch(err=>{
+        console.log(err);
+      });
+    },
+
     transType(type){
       this.loginType = type;
     }
